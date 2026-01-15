@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fraud Guard</h1>
+            <p>Real-time Transaction Analysis</p>
+        </header>
+
+        <main>
+            <div class="card input-section">
+                <h2>Transaction Details</h2>
+                <form id="fraudForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="type">Transaction Type</label>
+                            <select id="type" name="type" required>
+                                <option value="UPI">UPI</option>
+                                <option value="Card">Card</option>
+                                <option value="Net Banking">Net Banking</option>
+                                <option value="Wallet">Wallet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="amount">Amount (₹)</label>
+                            <input type="number" id="amount" name="amount" min="0" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="oldbalanceOrg">Sender Old Balance</label>
+                            <input type="number" id="oldbalanceOrg" name="oldbalanceOrg" min="0" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newbalanceOrig">Sender New Balance</label>
+                            <input type="number" id="newbalanceOrig" name="newbalanceOrig" min="0" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hour">Time of Day (Hour 0-23)</label>
+                            <input type="number" id="hour" name="hour" min="0" max="23" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="num_tx_24h">Tx Count (Last 24h)</label>
+                            <input type="number" id="num_tx_24h" name="num_tx_24h" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="account_age_days">Account Age (Days)</label>
+                            <input type="number" id="account_age_days" name="account_age_days" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="toggles">
+                        <div class="toggle-group">
+                            <label>Location Consistency</label>
+                            <div class="toggle-switch">
+                                <input type="radio" id="loc_consistent" name="location_consistency" value="1" checked>
+                                <label for="loc_consistent">Consistent</label>
+                                <input type="radio" id="loc_inconsistent" name="location_consistency" value="0">
+                                <label for="loc_inconsistent">Different</label>
+                            </div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <label>Device Status</label>
+                            <div class="toggle-switch">
+                                <input type="radio" id="dev_known" name="device_status" value="1" checked>
+                                <label for="dev_known">Known</label>
+                                <input type="radio" id="dev_new" name="device_status" value="0">
+                                <label for="dev_new">New</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="analyzeBtn">Analyze Transaction</button>
+                </form>
+            </div>
+
+            <div class="card result-section" id="resultCard" style="opacity: 0.5; pointer-events: none;">
+                <h2>Analysis Result</h2>
+                <div class="result-content">
+                    <div class="probability-ring" id="probRing">
+                        <div class="ring-circle">
+                            <span id="probValue">--%</span>
+                            <span class="label">Fraud Risk</span>
+                        </div>
+                    </div>
+                    <div class="status-badge" id="statusBadge">Waiting...</div>
+                    <p id="resultDetails">Enter transaction details to analyze.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
